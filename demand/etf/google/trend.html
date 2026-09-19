@@ -1,0 +1,70 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ETF 검색 수요 추이</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F7F8F5;--ink:#14213D;--rule:#D5D9D2;--mute:#6C7280;--soft:#EDEFEA;
+ --g0:#3A6EA5;--g1:#C8963E;--g2:#2E8B6E;--g3:#7B5EA7;--g4:#C4503E;--g5:#2A8FA6;--g6:#A0522D;--g7:#5C6B2F;--g8:#8A7F6B}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;font-size:13.5px;font-feature-settings:"tnum"}
+.head{padding:28px 28px 8px;max-width:1180px}h1{margin:0;font-size:26px;font-weight:600}h1 small{display:block;font-size:14px;font-weight:400;color:var(--mute);margin-top:4px}
+.note{color:var(--mute);font-size:12.5px;margin:10px 0 0;max-width:90ch;line-height:1.5}.note a{color:var(--ink)}
+.wrap{padding:8px 28px 40px;max-width:1180px}
+.panel{position:relative;margin-top:18px}
+.panel h2{font-size:15px;font-weight:600;margin:0 0 4px;display:flex;align-items:baseline;gap:10px}.panel h2 i{width:10px;height:10px;border-radius:50%;flex:none;position:relative;top:0}
+.panel h2 span.v{margin-left:auto;font-weight:400;color:var(--mute);font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 26px;margin-top:26px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}@media (max-width:560px){.grid{grid-template-columns:1fr}}
+svg{display:block;width:100%;overflow:visible}
+.axis text{fill:var(--mute);font-size:11px}.axis line,.axis path{stroke:var(--rule)}.grid-line{stroke:var(--rule);stroke-width:1}
+.line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}.area{opacity:.08}
+.lbl{font-size:11px;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:3px}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;padding:5px 9px;border-radius:4px;font-size:12px;display:none;white-space:nowrap;z-index:2}
+.cross{stroke:var(--ink);stroke-opacity:.35;stroke-width:1}
+</style></head><body>
+<div class="head"><h1>“ETF”<small>검색 수요 추이, 6월 22일 주부터 9월 13일까지 주별</small></h1>
+<p class="note">구글 월 검색량을 검색어 트렌드 지수로 주별 배분한 추정치. 상위 200개 검색어 기준, 월요일 시작 주. 집단 그래프는 패널마다 세로축이 다르며 오른쪽 위 숫자가 그 집단의 최고 주입니다. 숫자 표는 <a href="etf-gkt_weekly.html">주별 표</a>에 있습니다.</p></div>
+<div class="wrap">
+ <div class="panel" id="total"></div>
+ <div class="grid" id="grid"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const D={"weeks": ["2026-06-22", "2026-06-29", "2026-07-06", "2026-07-13", "2026-07-20", "2026-07-27", "2026-08-03", "2026-08-10", "2026-08-17", "2026-08-24", "2026-08-31", "2026-09-07"], "total": [89141, 82259, 55317, 31820, 22176, 27286, 22362, 24099, 16946, 15858, 16218, 20596], "groups": [{"id": 0, "name": "대표지수 ETF로 장기투자하는 사람", "who": "S&P500, 나스닥100, 코스피200 같은 대표 지수를 추종하는 ETF로 장기 적립식 투자를 계획하는 사람이다.", "weekly": [19698, 19922, 11534, 7722, 6412, 7416, 4587, 8541, 4616, 4453, 4611, 4005]}, {"id": 1, "name": "ETF가 뭔지 처음 찾아보는 사람", "who": "ETF 투자를 이제 막 시작하려는 초보 투자자로, 용어와 기본 개념부터 하나씩 익히는 단계에 있다.", "weekly": [16451, 15389, 9467, 6497, 3541, 4835, 6394, 3882, 3602, 3606, 3647, 8302]}, {"id": 2, "name": "배당·안전자산 현금흐름 원하는 사람", "who": "월배당·고배당 ETF, 채권 ETF, 금·은 등 안전자산 ETF로 안정적인 현금흐름이나 포트폴리오 방어를 원하는 사람이다.", "weekly": [6902, 6518, 4108, 2270, 1804, 2320, 1814, 1563, 2116, 2122, 1766, 1444]}, {"id": 3, "name": "유망 테마에 올라타려는 사람", "who": "반도체, AI, 로봇, 방산, 우주, 전기차, 원자력 등 성장 테마에 투자하고 싶은 사람이다.", "weekly": [19570, 12960, 10971, 5540, 4567, 4688, 2432, 2893, 1927, 1554, 1845, 1986]}, {"id": 4, "name": "특정 ETF 시세 바로 확인하는 사람", "who": "이미 투자 중이거나 관심 있는 특정 ETF(KODEX, TIGER, ACE, SOL, 혹은 해외 개별 티커)의 현재 주가와 상품 정보를 빠르게 확인하려는 사람이다.", "weekly": [16581, 16479, 12069, 6628, 3893, 5600, 3823, 4991, 2624, 2393, 2290, 2788]}, {"id": 5, "name": "절세 계좌로 ETF 굴리는 직장인", "who": "연금저축, IRP, ISA, 퇴직연금 등 세제혜택 계좌를 활용해 ETF에 장기 투자하려는 직장인이다.", "weekly": [3904, 5306, 3260, 1595, 1237, 1350, 895, 1018, 939, 726, 973, 707]}, {"id": 6, "name": "레버리지·인버스로 단타 노리는 사람", "who": "2배·3배 레버리지 또는 인버스(숏) ETF로 단기간에 높은 수익을 노리는 공격적 투자자다.", "weekly": [4007, 3343, 2283, 961, 471, 787, 957, 847, 834, 782, 860, 964]}, {"id": 7, "name": "증권사 매매법·수수료 확인하는 사람", "who": "이미 투자를 결심했고, 어느 증권사에서 어떻게 ETF를 사고 세금은 얼마나 내야 하는지 실무적인 절차를 확인하는 사람이다.", "weekly": [2028, 2342, 1625, 607, 251, 290, 1460, 364, 288, 222, 226, 400]}], "seed": "ETF", "top": 200, "date": "2026-09-19"};
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmt=n=>Math.round(n).toLocaleString('ko-KR');
+const W=w=>{const m=new Date(w+'T00:00:00'),s=new Date(m);s.setDate(m.getDate()+6);return `${m.getMonth()+1}/${m.getDate()}~${s.getMonth()+1}/${s.getDate()}`};
+const dates=D.weeks.map(w=>new Date(w+'T00:00:00'));
+function chart(el,series,color,opts){
+ const {h=260,big=false,title,sub}=opts;
+ const root=d3.select(el); root.append('h2').html(`${color?`<i style="background:${color}"></i>`:''}<span>${title}</span><span class="v">${sub||''}</span>`);
+ const tip=root.append('div').attr('class','tip');
+ const width=el.clientWidth||600, m={t:14,r:big?60:44,b:26,l:big?56:44};
+ const svg=root.append('svg').attr('viewBox',`0 0 ${width} ${h}`).attr('height',h);
+ const x=d3.scaleTime().domain(d3.extent(dates)).range([m.l,width-m.r]);
+ const y=d3.scaleLinear().domain([0,d3.max(series)*1.08]).nice().range([h-m.b,m.t]);
+ const ticks=y.ticks(big?5:3);
+ svg.append('g').selectAll('line').data(ticks).join('line').attr('class','grid-line').attr('x1',m.l).attr('x2',width-m.r).attr('y1',y).attr('y2',y);
+ svg.append('g').attr('class','axis').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(big?d3.timeMonth.every(1):d3.timeMonth.every(2)).tickFormat(t=>`${t.getMonth()+1}월`).tickSize(0).tickPadding(8)).select('.domain').remove();
+ svg.append('g').attr('class','axis').attr('transform',`translate(${m.l-8},0)`).call(d3.axisLeft(y).tickValues(ticks).tickFormat(v=>v>=1000?(v/1000)+'k':v).tickSize(0)).select('.domain').remove();
+ const line=d3.line().x((v,i)=>x(dates[i])).y(v=>y(v)).curve(d3.curveMonotoneX);
+ const area=d3.area().x((v,i)=>x(dates[i])).y0(y(0)).y1(v=>y(v)).curve(d3.curveMonotoneX);
+ svg.append('path').datum(series).attr('class','area').attr('fill',color||css('--ink')).attr('d',area);
+ svg.append('path').datum(series).attr('class','line').attr('stroke',color||css('--ink')).attr('d',line);
+ // selective labels: peak and last
+ const pi=d3.maxIndex(series), li=series.length-1;
+ const mark=(i,anchor,dy)=>{svg.append('circle').attr('cx',x(dates[i])).attr('cy',y(series[i])).attr('r',3.5).attr('fill',color||css('--ink')).attr('stroke',css('--paper')).attr('stroke-width',2);
+  svg.append('text').attr('class','lbl').attr('x',x(dates[i])+(anchor==='end'?-7:7)).attr('y',y(series[i])+dy).attr('text-anchor',anchor).text(fmt(series[i]))};
+ mark(pi,pi>series.length*0.7?'end':'start',-6); if(li!==pi) mark(li,'end',series[li]>series[pi]*0.6?-8:12);
+ // hover crosshair
+ const cross=svg.append('line').attr('class','cross').attr('y1',m.t).attr('y2',h-m.b).style('display','none');
+ const dot=svg.append('circle').attr('r',4).attr('fill',color||css('--ink')).attr('stroke',css('--paper')).attr('stroke-width',2).style('display','none');
+ svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',width-m.l-m.r).attr('height',h-m.t-m.b).attr('fill','transparent')
+  .on('mousemove',e=>{const [mx]=d3.pointer(e);const i=Math.max(0,Math.min(series.length-1,Math.round((mx-m.l)/(width-m.l-m.r)*(series.length-1))));
+   cross.style('display',null).attr('x1',x(dates[i])).attr('x2',x(dates[i]));dot.style('display',null).attr('cx',x(dates[i])).attr('cy',y(series[i]));
+   const box=el.getBoundingClientRect();tip.style('display','block').style('left',(e.clientX-box.left+12)+'px').style('top',(e.clientY-box.top-34)+'px').text(`${W(D.weeks[i])} · ${fmt(series[i])}회`)})
+  .on('mouseleave',()=>{cross.style('display','none');dot.style('display','none');tip.style('display','none')});
+}
+const pk=d3.maxIndex(D.total);
+chart(document.getElementById('total'),D.total,null,{h:300,big:true,title:'전체',sub:`최고 ${W(D.weeks[pk])} 주 ${fmt(D.total[pk])}회, 마지막 주 ${fmt(D.total[D.total.length-1])}회`});
+D.groups.forEach(g=>{const el=document.createElement('div');el.className='panel';document.getElementById('grid').appendChild(el);
+ const gp=d3.maxIndex(g.weekly);chart(el,g.weekly,css(`--g${Math.min(g.id,8)}`),{h:170,title:g.name,sub:`최고 ${fmt(g.weekly[gp])}`})});
+</script></body></html>

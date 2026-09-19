@@ -1,0 +1,77 @@
+/* Hallmark · studied-DNA (source: https://kbam.co.kr/fund) · macrostructure: Card Catalogue · tone: friendly-utilitarian
+ * observed: Pretendard body + KBFG Text display (brand font, replaced by Pretendard 500/700) · paper rgb(245,245,245) · white cards r20 · pill segmented nav · gold pill CTA
+ */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+:root{
+  --paper:#F5F5F5;--card:#FFFFFF;--ink:#111111;--ink-2:#444444;--mute:#767676;--line:#E6E6E6;--soft:rgba(0,0,0,.05);
+  --gold:#F4D06F;--gold-2:#E9B93F;--navy:#14213D;--up:#E5432A;--down:#2B6DE5;
+  --font:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  --r:20px;--r-s:12px;--pill:999px;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:40px;--s7:64px;--s8:96px;
+  --ease:cubic-bezier(.2,0,0,1);--dur:.18s;
+}
+*{box-sizing:border-box}html,body{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--font);font-feature-settings:"tnum";-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* nav — pill segmented (source: RISE ETF | KB 펀드 toggle) */
+.nav{position:sticky;top:0;z-index:5;background:rgba(245,245,245,.88);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.nav .container{display:flex;align-items:center;gap:var(--s4);height:72px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.01em}
+.brand img{width:26px;height:26px}
+.seg{display:inline-flex;background:var(--soft);border-radius:var(--pill);padding:4px;margin-left:var(--s3)}
+.seg a,.seg button{border:0;background:none;font:inherit;font-size:14px;font-weight:600;color:var(--mute);padding:7px 14px;border-radius:var(--pill);cursor:pointer;line-height:1;white-space:nowrap;transition:background var(--dur) var(--ease),color var(--dur) var(--ease)}
+.seg .on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.nav .links{margin-left:auto;display:flex;gap:28px;font-size:15px;font-weight:600}
+.nav .links a{color:var(--ink-2)}.nav .links a:hover{color:var(--ink)}
+.cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(180deg,#F8DA80,var(--gold-2));color:var(--ink);font-weight:700;font-size:14px;padding:11px 18px;border-radius:var(--pill);white-space:nowrap;transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.cta:hover{box-shadow:0 6px 16px rgba(233,185,63,.35)}.cta:active{transform:translateY(1px)}
+
+/* headline — conversational, big, left (source: "수익률 상위 KB펀드 순위예요") */
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s5);flex-wrap:wrap;margin:var(--s7) 0 var(--s5)}
+.head h1,.head h2{margin:0;font-size:clamp(28px,3.4vw,44px);line-height:1.2;font-weight:500;letter-spacing:-.02em;overflow-wrap:anywhere;min-width:0}
+.head h1 b,.head h2 b{font-weight:700}
+.head .meta{color:var(--mute);font-size:14px;display:flex;align-items:center;gap:10px;margin-top:10px}
+.head .meta i{width:1px;height:12px;background:var(--line);display:inline-block}
+.head .more{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:15px;color:var(--ink-2)}
+.head .more::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-top:1.5px solid currentColor;transform:rotate(45deg)}
+.lede{color:var(--ink-2);font-size:17px;max-width:64ch;margin:-8px 0 var(--s5)}
+
+/* cards — white r20, 4-up, 3D icon top, title, stat line (source: 첫 투자 필수템 tiles) */
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s5)}
+.card{position:relative;display:flex;flex-direction:column;background:var(--card);border-radius:var(--r);padding:28px 28px 26px;min-height:300px;box-shadow:0 1px 0 rgba(0,0,0,.03);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(0,0,0,.07)}
+.card .ic{width:120px;height:120px;object-fit:contain;margin:0 auto var(--s4);display:block}
+.card h3{margin:0;font-size:22px;font-weight:700;letter-spacing:-.01em}
+.card .sub{margin:6px 0 0;color:var(--mute);font-size:14px}
+.card .stat{margin-top:auto;padding-top:var(--s4);font-size:15px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.card .stat b{font-weight:700;color:var(--ink)}.card .stat .up{color:var(--up);font-weight:700}.card .stat .down{color:var(--down);font-weight:700}
+.card .stat small{color:var(--mute);font-size:13px}
+.card.link{cursor:pointer}.card.link:focus-within{outline:2px solid var(--ink);outline-offset:3px}
+.card a.cover{position:absolute;inset:0;border-radius:var(--r)}
+.card.dark{background:var(--navy);color:#fff}.card.dark h3,.card.dark .stat b{color:#fff}.card.dark .sub,.card.dark .stat{color:rgba(255,255,255,.7)}
+
+/* tabs (source: 1개월 3개월 6개월 1년) */
+.tabs{display:inline-flex;gap:6px}
+.tabs button{border:0;background:var(--soft);font:inherit;font-size:14px;font-weight:600;color:var(--ink-2);padding:8px 14px;border-radius:var(--r-s);cursor:pointer;transition:background var(--dur) var(--ease),color var(--dur) var(--ease)}
+.tabs button.on{background:var(--ink);color:#fff}
+
+/* strip — key numbers */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s5);margin:var(--s5) 0 0}
+.strip div{background:var(--card);border-radius:var(--r);padding:22px 24px}
+.strip small{display:block;color:var(--mute);font-size:13px;margin-bottom:6px}
+.strip b{font-size:26px;font-weight:700;letter-spacing:-.02em}
+.strip span{color:var(--mute);font-size:14px;margin-left:6px}
+
+/* about / footer (source: dark footer with family sites) */
+.about{margin:var(--s8) 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s5)}
+.about .card{min-height:0}.about p{margin:0 0 10px;color:var(--ink-2);font-size:15px}
+footer{margin-top:var(--s8);background:#1B1B1B;color:#BDBDBD;font-size:13.5px}
+footer .container{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:28px 24px}
+footer a{color:#E6E6E6;font-weight:600}footer .sp{flex:1}
+
+@media(max-width:1024px){.grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.grid,.strip,.about{grid-template-columns:1fr}.nav .links{display:none}.nav .container{height:64px}.seg{margin-left:0}.card{min-height:0}.card .ic{width:96px;height:96px}.head{margin-top:var(--s6)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
