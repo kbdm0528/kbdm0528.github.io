@@ -19,14 +19,60 @@ svg{display:block;width:100%;overflow:visible}
 .lbl{font-size:11px;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:3px}
 .tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;padding:5px 9px;border-radius:4px;font-size:12px;display:none;white-space:nowrap;z-index:2}
 .cross{stroke:var(--ink);stroke-opacity:.35;stroke-width:1}
-</style></head><body>
-<div class="head"><h1>“ETF”<small>검색 수요 추이, 1월 5일 주부터 9월 6일까지 주별</small></h1>
-<p class="note">네이버 월 검색량을 검색어 트렌드 지수로 주별 배분한 추정치. 상위 550개 검색어 기준, 월요일 시작 주. 집단 그래프는 패널마다 세로축이 다르며 오른쪽 위 숫자가 그 집단의 최고 주입니다. 숫자 표는 <a href="etf-kt_weekly.html">주별 표</a>에 있습니다.</p></div>
+</style><style>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+:root{--paper:#F5F5F5;--card:#FFFFFF;--ink:#111111;--ink-2:#444444;--mute:#767676;--rule:#E6E6E6;--line:#E6E6E6;--soft:rgba(0,0,0,.05);
+ --gold:#F4D06F;--gold-2:#E9B93F;--gold-soft:#FBF0C8;--navy:#14213D;--up:#E5432A;--down:#2B6DE5;--dn:#2B6DE5;
+ --font:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;--r:20px;--r-l:24px;--r-s:12px;--pill:999px;--ease:cubic-bezier(.2,0,0,1);--dur:.18s}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-feature-settings:"tnum";-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+.kc{max-width:1200px;margin:0 auto;padding:0 24px}
+.knav{position:sticky;top:0;z-index:6;background:rgba(245,245,245,.9);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.knav .kc{display:flex;align-items:center;gap:16px;height:72px}
+.kbrand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}.kbrand img{width:26px;height:26px}
+.kseg{display:inline-flex;background:var(--soft);border-radius:var(--pill);padding:4px;margin-left:12px}
+.kseg a{font-size:14px;font-weight:600;color:var(--mute);padding:7px 14px;border-radius:var(--pill);white-space:nowrap;line-height:1}
+.kseg a.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.kcta{margin-left:auto;display:inline-flex;align-items:center;background:linear-gradient(180deg,#F8DA80,var(--gold-2));color:var(--ink);font-weight:700;font-size:14px;padding:11px 18px;border-radius:var(--pill);white-space:nowrap}
+.khero{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px;align-items:center;padding:44px 0 8px}
+.khero .lab{color:var(--ink-2);font-size:15px;margin:0 0 6px}
+.khero h1{margin:0;font-size:clamp(34px,4.6vw,56px);line-height:1.12;font-weight:500;letter-spacing:-.025em;overflow-wrap:anywhere}
+.khero h1 b{font-weight:700}
+.kchips{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.kchips span{font-size:13.5px;font-weight:600;padding:6px 10px;border-radius:6px;background:var(--soft);color:var(--ink-2)}
+.kchips span.gold{background:var(--gold-soft);color:#8A6300}.kchips span.navy{background:var(--navy);color:#fff}
+.khero img{width:240px;height:240px;object-fit:contain;justify-self:end;filter:drop-shadow(0 18px 30px rgba(0,0,0,.12))}
+.kkpi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:28px 0 0}
+.kkpi div{background:var(--card);border-radius:var(--r);padding:20px 22px 22px;min-height:132px;display:flex;flex-direction:column}
+.kkpi small{color:var(--mute);font-size:14px}.kkpi b{margin-top:auto;font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.kkpi em{font-style:normal;font-size:14px;color:var(--mute);margin-top:4px}.kkpi .up{color:var(--up)}.kkpi .down{color:var(--down)}
+.kasof{display:flex;align-items:center;gap:8px;color:var(--mute);font-size:14px;margin:12px 0 0}
+.kasof::before{content:"";width:12px;height:12px;border:1.5px solid var(--mute);border-radius:50%;display:inline-block}
+.ksub{position:sticky;top:72px;z-index:5;margin:28px 0 20px}
+.ksub .bar{background:var(--card);border-radius:var(--r-l);padding:10px 14px 10px 24px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.ksub .t{font-weight:600;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+.ksub .tabs{display:flex;gap:4px;background:var(--soft);border-radius:var(--pill);padding:4px}
+.ksub .tabs a{font-size:14px;font-weight:600;color:var(--ink-2);padding:9px 16px;border-radius:var(--pill);white-space:nowrap;line-height:1}
+.ksub .tabs a.on{background:var(--ink);color:#fff}
+.kcard{background:var(--card);border-radius:var(--r-l);padding:36px 40px 32px;margin:0 0 20px}
+.kcard .khead{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.kcard h2{margin:0;font-size:28px;font-weight:600;letter-spacing:-.02em}.kcard .panel h2{font-size:16px;font-weight:600;letter-spacing:0}
+.kcard .note{color:var(--mute);font-size:14px;line-height:1.6;max-width:96ch;margin:8px 0 22px}
+.kcard .note::before{content:"• ";color:var(--mute)}
+.kfoot{color:var(--mute);font-size:14px;display:flex;gap:8px;align-items:center;margin:18px 0 0}
+.kfoot::before{content:"";width:12px;height:12px;border:1.5px solid var(--mute);border-radius:50%;display:inline-block}
+footer.kft{margin-top:56px;background:#1B1B1B;color:#BDBDBD;font-size:13.5px}
+footer.kft .kc{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:28px 24px}footer.kft a{color:#E6E6E6;font-weight:600}footer.kft .sp{flex:1}
+@media(max-width:900px){.khero{grid-template-columns:1fr}.khero img{display:none}.kkpi{grid-template-columns:repeat(2,minmax(0,1fr))}.knav .kseg{display:none}.ksub .bar{padding-left:16px}.ksub .t{display:none}.ksub .tabs{width:100%;overflow-x:auto}.kcard{padding:24px 20px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.kcard .wrap{padding:0;overflow:auto}.kcard thead th{position:static;background:transparent}.kcard tbody th{background:var(--card)}.kcard table{font-size:14px}.kcard th,.kcard td{padding:9px 12px}.kcard .head{display:none}</style></head><body>
+<header class="knav"><div class="kc"><a class="kbrand" href="/"><img src="/mark.png" alt="" width="26" height="26">KBDM Lab</a><nav class="kseg" aria-label="도구"><a href="/">전체</a><a class="on" href="/demand/">검색 수요 지도</a><a href="/#geo">GEO 스테이션</a></nav><a class="kcta" href="/demand/">다른 씨앗 검색어 보기</a></div></header><main class="kc"><section class="khero"><div><p class="lab">검색 수요 지도 · 네이버</p><h1>“ETF” <b>검색 수요</b></h1><div class="kchips"><span class="gold">네이버</span><span>네이버 키워드도구 뿌리</span><span>검색어 1,551개</span><span>군집 110개</span><span>수요 집단 8개</span></div></div><img src="/assets/icons/seed-etf.png" onerror="this.onerror=null;this.src='/assets/icons/trend.png'" alt=""></section><div class="kkpi"><div><small>월 검색량</small><b>699,340<em style="font-size:15px;font-weight:500">회</em></b><em>최근 30일</em></div><div><small>최근 4주 변화</small><b class="down">-18%</b><em>이전 4주 대비</em></div><div><small>전월 대비</small><b class="down">-20%</b><em>8월</em></div><div><small>가장 큰 수요 집단</small><b style="font-size:18px">반도체·AI 등 테마 성장주 노리는 사람</b><em>27% 비중</em></div><div><small>테마 vs 대표지수</small><b>60% <em style="font-size:15px;font-weight:500">테마</em></b><em>대표지수 16%</em></div></div><p class="kasof">2026-09-08 수집 기준 · 구글 데이터는 <a href="../google/trend.html" style="font-weight:600;color:var(--ink)">여기</a></p><div class="ksub"><div class="bar"><span class="t">“ETF” · 네이버</span><nav class="tabs"><a class="" href="map.html">수요 지도</a><a class="" href="weekly.html">주별</a><a class="" href="monthly.html">월별</a><a class="" href="facets.html">시장 × 유형</a><a class="on" href="trend.html">추이</a></nav></div></div><section class="kcard"><div class="khead"><h2>검색 수요 추이 <small style="font-size:14px;color:var(--mute);font-weight:400">1월 5일 주부터 9월 6일까지 주별</small></h2></div><p class="note">네이버 월 검색량을 검색어 트렌드 지수로 주별 배분한 추정치. 상위 550개 검색어 기준, 월요일 시작 주. 집단 그래프는 패널마다 세로축이 다르며 오른쪽 위 숫자가 그 집단의 최고 주입니다. 숫자 표는 <a href="etf-kt_weekly.html">주별 표</a>에 있습니다.</p>
 <div class="wrap">
  <div class="panel" id="total"></div>
  <div class="grid" id="grid"></div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+</section></main><footer class="kft"><div class="kc"><a href="/">KBDM Lab</a><a href="/demand/">검색 수요 지도</a><a href="/demand/privacy.html">개인정보처리방침</a><span class="sp"></span><span>갱신 2026-09-19</span></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script>
 const D={"weeks": ["2026-01-05", "2026-01-12", "2026-01-19", "2026-01-26", "2026-02-02", "2026-02-09", "2026-02-16", "2026-02-23", "2026-03-02", "2026-03-09", "2026-03-16", "2026-03-23", "2026-03-30", "2026-04-06", "2026-04-13", "2026-04-20", "2026-04-27", "2026-05-04", "2026-05-11", "2026-05-18", "2026-05-25", "2026-06-01", "2026-06-08", "2026-06-15", "2026-06-22", "2026-06-29", "2026-07-06", "2026-07-13", "2026-07-20", "2026-07-27", "2026-08-03", "2026-08-10", "2026-08-17", "2026-08-24", "2026-08-31"], "total": [361432, 390445, 480315, 771184, 469844, 355901, 327339, 514255, 392289, 318910, 271471, 228174, 189544, 198415, 242621, 330859, 303916, 373110, 419327, 308630, 504122, 344345, 270313, 309826, 276499, 212296, 177579, 165800, 142510, 176270, 148455, 149678, 130981, 133235, 107138], "groups": [{"id": 0, "name": "반도체·AI 등 테마 성장주 노리는 사람", "who": "반도체, 2차전지, 로봇, 바이오, AI 등 특정 성장 테마에 베팅하려는 투자자다.", "weekly": [96639, 96910, 129073, 216048, 111289, 90259, 82529, 159709, 113024, 92891, 79800, 53582, 50126, 57931, 69911, 116789, 100294, 131080, 161369, 106298, 130578, 119514, 89443, 110184, 99035, 78278, 54791, 42098, 40237, 46369, 39747, 45590, 34727, 33314, 27374]}, {"id": 1, "name": "미국 대표지수로 코어자산 담는 사람", "who": "나스닥100, S&P500 같은 미국 대표지수 ETF를 포트폴리오 중심으로 삼으려는 투자자다.", "weekly": [56852, 62504, 69335, 83550, 62658, 57455, 48986, 62488, 52998, 46358, 39723, 36696, 33373, 31652, 41245, 51626, 43922, 53057, 61063, 49667, 67469, 54826, 48712, 46869, 43623, 36490, 40732, 48093, 37866, 47073, 36968, 31335, 28447, 25476, 24767]}, {"id": 2, "name": "월배당으로 현금흐름 만들려는 사람", "who": "매달 꼬박꼬박 배당금을 받아 생활비나 용돈에 보태고 싶은 투자자다.", "weekly": [81565, 87164, 107748, 147750, 109414, 82835, 73316, 91215, 65892, 64857, 59691, 48492, 41758, 44326, 52916, 59896, 53383, 59719, 59238, 49736, 55330, 47302, 36976, 44977, 35865, 32342, 28134, 24107, 24879, 27540, 28929, 28990, 28738, 25574, 22511]}, {"id": 3, "name": "특정 운용사 ETF 브랜드로 검색하는 사람", "who": "코덱스, 타이거, 삼성, 미래에셋, sol, plus 등 특정 브랜드명으로 상품을 찾아보는 사람이다.", "weekly": [26855, 30249, 31655, 46681, 33719, 30490, 25065, 44994, 29485, 27712, 25173, 21025, 16494, 18685, 24808, 30502, 34400, 34196, 38172, 27609, 51513, 31329, 29042, 32660, 28751, 21421, 18253, 16147, 13306, 22268, 13756, 17944, 12056, 19993, 12514]}, {"id": 4, "name": "ETF 처음 시작하는 초보 투자자", "who": "ETF가 뭔지, 어떻게 사는지부터 알아보는 투자 입문자다.", "weekly": [48715, 54214, 67518, 131737, 65049, 53226, 63550, 107057, 71685, 46823, 34101, 33505, 24889, 26028, 32647, 49449, 50252, 68957, 74919, 57154, 178474, 72044, 48316, 55882, 54795, 31105, 26034, 27244, 18533, 24856, 17282, 13579, 13338, 10624, 9300]}, {"id": 5, "name": "금·원유 등 대체자산으로 헤지하려는 사람", "who": "주식 외에 금, 원유, 구리, 비트코인 같은 실물·대체자산 ETF로 분산투자하려는 사람이다.", "weekly": [38588, 47349, 60359, 125577, 76135, 30121, 23842, 35598, 50545, 32545, 25640, 29431, 18176, 14872, 14700, 14581, 13811, 16971, 15284, 10588, 12351, 11288, 12088, 11209, 8977, 8430, 6094, 5114, 5249, 5234, 9088, 9908, 11382, 15732, 7939]}, {"id": 6, "name": "채권·파킹형 ETF로 안전하게 굴리는 사람", "who": "목돈을 짧은 기간 안전하게 굴리며 예금 대신 쓸 곳을 찾는 보수적인 투자자다.", "weekly": [3961, 3861, 5284, 11893, 4938, 4576, 4452, 4576, 2584, 2438, 2265, 1862, 1881, 1971, 2013, 2387, 3034, 2977, 2614, 2724, 2876, 2418, 1594, 2141, 1727, 1512, 1376, 1100, 913, 1164, 1106, 1062, 1129, 1432, 1835]}, {"id": 7, "name": "연금계좌로 절세하며 굴리는 사람", "who": "연금저축·IRP·퇴직연금 계좌 안에서 ETF로 노후자금을 불리려는 사람이다.", "weekly": [8257, 8194, 9343, 7948, 6642, 6939, 5599, 8618, 6076, 5286, 5078, 3581, 2847, 2950, 4381, 5629, 4820, 6153, 6668, 4854, 5531, 5624, 4142, 5904, 3726, 2718, 2165, 1897, 1527, 1766, 1579, 1270, 1164, 1090, 898]}], "seed": "ETF", "top": 550, "date": "2026-09-08"};
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
