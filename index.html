@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KBDM Lab</title>
-<meta name="description" content="KBDM Lab — 디지털마케팅 실무용 자체 제작 도구 모음 (검색 수요 지도, GEO 측정 등)">
+<meta name="description" content="KBDM Lab — 검색 수요 지도: 검색어 자동완성과 검색량 데이터로 그리는 수요 군집 지도">
 <link rel="icon" href="/favicon.png" sizes="64x64">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/site.css">
@@ -12,7 +12,7 @@
 <body>
 <header class="nav"><div class="container">
 <a class="brand" href="/"><img src="/mark.png" alt="" width="26" height="26">KBDM Lab</a>
-<nav class="seg" aria-label="도구"><a class="on" href="/">전체</a><a href="/demand/">검색 수요 지도</a><a href="#geo">GEO 스테이션</a></nav>
+<nav class="seg" aria-label="도구"><a class="on" href="/">홈</a><a href="/demand/">검색 수요 지도</a></nav>
 <div class="links"><a href="#tools">도구</a><a href="#about">소개</a></div>
 <a class="cta" href="/demand/">검색 수요 지도 보기</a>
 </div></header>
@@ -20,18 +20,18 @@
 <main class="container">
 <div class="head">
 <div><h1>디지털마케팅 실무에서<br><b>직접 만들어 쓰는 도구</b>예요</h1>
-<p class="meta">각 도구는 개발자 컴퓨터에서 실행되고, 결과만 이곳에 게시돼요 <i></i> 외부 계정 연동 없음</p></div>
+<p class="meta">개발자 컴퓨터에서 실행되고, 결과만 이곳에 게시돼요 <i></i> 외부 계정 연동 없음</p></div>
 </div>
 
 <section id="tools" class="grid">
 <article class="card link"><img class="ic" src="/assets/icons/map.png" alt=""><h3>Search Demand Map</h3><p class="sub">검색어 자동완성 + 검색량으로 수요 군집 지도</p><p class="stat"><b>네이버·구글</b><small>씨앗 검색어 ETF</small></p><a class="cover" href="/demand/" aria-label="Search Demand Map 열기"></a></article>
 <article class="card link"><img class="ic" src="/assets/icons/weekly.png" alt=""><h3>주별 수요</h3><p class="sub">월요일부터 일요일까지, 최근 12주</p><p class="stat"><b>네이버·구글</b><small>트렌드 지수 × 월 검색량</small></p><a class="cover" href="/demand/" aria-label="주별 수요 열기"></a></article>
 <article class="card link"><img class="ic" src="/assets/icons/monthly.png" alt=""><h3>월별 수요</h3><p class="sub">최근 12개월, 전월비·전년비</p><p class="stat"><b>구글은 실측</b><small>키워드 플래너 월별 값</small></p><a class="cover" href="/demand/" aria-label="월별 수요 열기"></a></article>
-<article class="card dark" id="geo"><img class="ic" src="/assets/icons/geo.png" alt=""><h3>GEO 스테이션</h3><p class="sub">생성형 AI 답변 속 브랜드 언급·인용 측정</p><p class="stat"><b>내부 전용</b><small>주기 측정 대시보드</small></p></article>
+<article class="card link"><img class="ic" src="/assets/icons/facets.png" alt=""><h3>시장 × 유형</h3><p class="sub">투자 대상과 상품 유형으로 나눠서</p><p class="stat"><b>국내 · 해외</b><small>대표지수 · 테마</small></p><a class="cover" href="/demand/" aria-label="시장 × 유형 열기"></a></article>
 </section>
 
 <section class="about" id="about">
-<div class="card"><h3>About</h3><p>KBDM Lab is a collection of self-built tools for digital-marketing work: a search-demand clustering map and a generative-engine visibility tracker.</p><p>Tools run locally and only read data from the developer's own accounts. Google Ads API access is used solely to read keyword search-volume metrics.</p></div>
+<div class="card"><h3>About</h3><p>KBDM Lab is a self-built research tool for digital-marketing work: a search-demand clustering map built from autocomplete queries and search-volume data.</p><p>Tools run locally and only read data from the developer's own accounts. Google Ads API access is used solely to read keyword search-volume metrics.</p></div>
 <div class="card"><h3>데이터 출처</h3><p>네이버: 검색광고 키워드도구 연관검색어와 월 검색량, 네이버 검색어 트렌드.</p><p>구글: 키워드 플래너 키워드 아이디어와 월별 검색량, 구글 트렌드.</p><p>군집 이름과 수요 집단 설명은 Claude가 작성해요.</p></div>
 </section>
 </main>
